@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Gallery extends Model
+class VisitorStat extends Model
 {
     protected $fillable = [
-        'title',
-        'image',
-        'published_at',
+        'date',
+        'count',
     ];
 
     protected $casts = [
-        'published_at' => 'datetime',
+        'date' => 'date',
     ];
 }

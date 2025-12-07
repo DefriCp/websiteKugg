@@ -8,6 +8,7 @@ class SiteSetting extends Model
 {
     protected $fillable = [
         'site_name',
+        'logo',               // <--- tambahkan
         'hero_title',
         'hero_subtitle',
         'hero_button_text',
