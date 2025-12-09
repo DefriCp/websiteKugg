@@ -3,14 +3,6 @@
 <head>
     <meta charset="utf-8">
 
-    @php
-        // Ambil pengaturan situs
-        $globalSetting  = \App\Models\SiteSetting::first();
-        // Nilai default visitor (idealnya di-pass dari controller)
-        $todayVisitors  = $todayVisitors ?? 0;
-        $totalVisitors  = $totalVisitors ?? 0;
-    @endphp
-
     <title>
         @yield('title', $globalSetting->site_name ?? 'Koperasi Usaha Gilang Gemilang')
     </title>
@@ -29,9 +21,9 @@
 </head>
 <body class="bg-white text-slate-900" x-data="{ openPengaduan: false }">
 
-    {{-- ===== Navbar ===== --}}
-    <header class="bg-gradient-to-r from-[#FF4E50] via-[#FC913A] to-[#FDC830] shadow-md">
-        <div class="max-w-6xl mx-auto flex items-center justify-between py-3 px-4 text-slate-900">
+    {{-- ========== NAVBAR ========== --}}
+    <header class="bg-gradient-to-r from-[#FFFFFF] via-[#FDC830] to-[#FDC830] shadow-md">
+        <div class="max-w-6xl mx-auto flex items-center justify-between py-3 px-4 text-black">
             <div class="flex items-center gap-2">
                 <img
                     src="{{ $globalSetting?->logo
@@ -47,38 +39,39 @@
 
             <nav class="hidden md:flex items-center gap-6 text-sm font-semibold">
                 <a href="{{ route('home') }}"
-                   class="hover:underline text-[#245c08] {{ request()->routeIs('home') ? 'font-bold' : '' }}">
+                   class="hover:underline text-black {{ request()->routeIs('home') ? 'font-bold' : '' }}">
                     Beranda
                 </a>
                 <a href="{{ route('about') }}"
-                   class="hover:underline text-[#245c08] {{ request()->routeIs('about') ? 'font-bold' : '' }}">
+                   class="hover:underline text-black {{ request()->routeIs('about') ? 'font-bold' : '' }}">
                     Tentang Kami
                 </a>
                 <a href="{{ route('products') }}"
-                   class="hover:underline text-[#245c08] {{ request()->routeIs('products') ? 'font-bold' : '' }}">
+                   class="hover:underline text-black {{ request()->routeIs('products') ? 'font-bold' : '' }}">
                     Produk
+                </a>
+                <a href="{{ route('titik-layanan') }}"
+                   class="hover:underline text-black {{ request()->routeIs('titik-layanan') ? 'font-bold' : '' }}">
+                    Titik Layanan
+                </a>
+                <a href="{{ route('mitra') }}"
+                   class="hover:underline text-black {{ request()->routeIs('mitra') ? 'font-bold' : '' }}">
+                    Mitra
                 </a>
                 <a href="{{ route('pengajuan') }}"
                    class="hover:underline text-red-700 {{ request()->routeIs('pengajuan') ? 'font-extrabold' : 'font-bold' }}">
                     Pengajuan Kredit
                 </a>
             </nav>
-
-            <div class="hidden md:block text-right">
-                <div class="text-xs font-semibold">KOPERASI USAHA</div>
-                <div class="text-lg font-black leading-none">
-                    {{ strtoupper($globalSetting->site_name ?? 'GILANG GEMILANG') }}
-                </div>
-            </div>
         </div>
     </header>
 
-    {{-- ===== Konten Halaman ===== --}}
+    {{-- ========== KONTEN HALAMAN ========== --}}
     <main>
         @yield('content')
     </main>
 
-    {{-- ===== Tombol Floating Pengaduan (lebih besar) ===== --}}
+    {{-- ========== TOMBOL FLOATING PENGADUAN ========== --}}
     <button
         type="button"
         @click="openPengaduan = true"
@@ -101,7 +94,7 @@
         </span>
     </button>
 
-    {{-- ===== Panel Pengaduan: card mengambang di kanan ===== --}}
+    {{-- ========== PANEL PENGADUAN ========== --}}
     <div
         x-cloak
         x-show="openPengaduan"
@@ -109,10 +102,8 @@
         aria-modal="true"
         role="dialog"
     >
-        {{-- Overlay gelap --}}
         <div class="flex-1 bg-black/50" @click="openPengaduan = false"></div>
 
-        {{-- Wrapper panel supaya di tengah kanan dan tidak full tinggi di desktop --}}
         <div
             class="w-full max-w-md h-full md:h-auto md:max-h-[560px] md:mr-10"
             x-transition:enter="transform transition ease-out duration-200"
@@ -123,7 +114,6 @@
             x-transition:leave-end="translate-x-full opacity-0"
         >
             <div class="bg-white h-full md:h-auto rounded-none md:rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-                {{-- Header dengan strip gradient --}}
                 <div class="bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-300 px-4 py-3 flex items-center justify-between">
                     <div>
                         <div class="text-xs uppercase font-semibold text-amber-900/80 tracking-wide">
@@ -147,13 +137,11 @@
                     </button>
                 </div>
 
-                {{-- Deskripsi singkat --}}
                 <div class="px-4 pt-3 pb-1 border-b border-slate-100 text-[11px] text-slate-500">
-                    Laporkan disini apabila karyawan kami meminta imbalan dalam 
-bentuk apapun kepada NASABAH! 
+                    Laporkan disini apabila karyawan kami meminta imbalan dalam
+                    bentuk apapun kepada NASABAH!
                 </div>
 
-                {{-- Isi form --}}
                 <div class="flex-1 overflow-y-auto p-4">
                     @if(session('status'))
                         <div class="mb-3 text-xs px-3 py-2 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">
@@ -213,11 +201,26 @@ bentuk apapun kepada NASABAH!
         </div>
     </div>
 
-    {{-- ===== Footer ===== --}}
-    <footer class="mt-12 text-white text-sm">
-        <div class="bg-gradient-to-r from-[#FF4E50] via-[#FC913A] to-[#FDC830] shadow-md">
+    {{-- ========== FOOTER ========== --}}
+    @php
+        // Ambil dari kolom yang memang ada di migration
+        $addr     = $globalSetting->address   ?? 'Jl. .......................';
+        $phone    = $globalSetting->phone     ?? '021-123456';
+        $whatsapp = $globalSetting->whatsapp  ?? null;
+        $email    = $globalSetting->email     ?? 'pensiun.gemilang@gilanggemilang.id';
+        $igUrl    = $globalSetting->instagram_url ?? 'https://instagram.com/gemilangkoperasi';
+        $fbUrl    = $globalSetting->facebook_url  ?? '#';
+
+        $todayVisitors = $todayVisitors ?? 0;
+        $totalVisitors = $totalVisitors ?? 0;
+    @endphp
+
+    <footer class="mt-12 text-black text-sm">
+        <div class="bg-gradient-to-r from-[#FFFFFF] via-[#FDC830] to-[#FDC830] shadow-md">
             <div class="max-w-6xl mx-auto px-4 py-10 md:py-12">
                 <div class="grid gap-10 md:grid-cols-4">
+
+                    {{-- Logo & Tagline --}}
                     <div class="space-y-3">
                         <div class="flex items-center gap-2">
                             <img
@@ -238,6 +241,7 @@ bentuk apapun kepada NASABAH!
                         </div>
                     </div>
 
+                    {{-- Menu Utama --}}
                     <div>
                         <h4 class="text-xs font-semibold uppercase tracking-wide mb-3">
                             Menu Utama
@@ -246,10 +250,13 @@ bentuk apapun kepada NASABAH!
                             <li><a href="{{ route('home') }}" class="hover:underline">Beranda</a></li>
                             <li><a href="{{ route('news.index') }}" class="hover:underline">Berita</a></li>
                             <li><a href="{{ route('products') }}" class="hover:underline">Produk</a></li>
+                            <li><a href="{{ route('titik-layanan') }}" class="hover:underline">Titik Layanan</a></li>
+                            <li><a href="{{ route('mitra') }}" class="hover:underline">Mitra</a></li>
                             <li><a href="{{ route('pengajuan') }}" class="hover:underline">Pengajuan Kredit</a></li>
                         </ul>
                     </div>
 
+                    {{-- Kontak --}}
                     <div>
                         <h4 class="text-xs font-semibold uppercase tracking-wide mb-3">
                             Kontak
@@ -264,19 +271,31 @@ bentuk apapun kepada NASABAH!
                                         <circle cx="12" cy="11" r="2.5"/>
                                     </svg>
                                 </span>
-                                <span>
-                                    Jl. Ahmad Yani No. 128, Tasikmalaya<br>
-                                    (contoh alamat – bisa diganti)
-                                </span>
+                                <span>{!! nl2br(e($addr)) !!}</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="1.8"
-                                     stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.8 12.8 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.26-1.21a2 2 0 0 1 2.11-.45 12.8 12.8 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                </svg>
-                                <span>0265-123456</span>
-                            </li>
+
+                            @if($phone)
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="1.8"
+                                         stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72 12.8 12.8 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.1 9.9a16 16 0 0 0 6 6l1.26-1.21a2 2 0 0 1 2.11-.45 12.8 12.8 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                    <span>{{ $phone }}</span>
+                                </li>
+                            @endif
+
+                            @if($whatsapp)
+                                <li class="flex items-center gap-2">
+                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="1.8"
+                                         stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M16.72 13.06c-.27-.14-1.62-.8-1.87-.89-.25-.09-.43-.14-.61.14-.18.27-.7.89-.86 1.07-.16.18-.32.2-.59.07-.27-.14-1.12-.41-2.14-1.31-.79-.7-1.32-1.57-1.48-1.84-.16-.27-.02-.41.12-.54.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47l-.52-.01c-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29 0 1.35.99 2.65 1.13 2.84.14.18 1.94 2.96 4.77 4.15.67.29 1.19.46 1.6.59.67.21 1.28.18 1.76.11.54-.08 1.62-.66 1.85-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.52-.32z"/>
+                                    </svg>
+                                    <span>{{ $whatsapp }}</span>
+                                </li>
+                            @endif
+
                             <li class="flex items-center gap-2">
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" stroke-width="1.8"
@@ -284,18 +303,20 @@ bentuk apapun kepada NASABAH!
                                     <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
                                     <polyline points="3,7 12,13 21,7"></polyline>
                                 </svg>
-                                <span>info@gilanggemilang.co.id</span>
+                                <span>{{ $email }}</span>
                             </li>
                         </ul>
                     </div>
 
+                    {{-- Sosial Media --}}
                     <div>
                         <h4 class="text-xs font-semibold uppercase tracking-wide mb-3">
                             Sosial Media
                         </h4>
                         <div class="flex items-center gap-3">
-                            <a href="https://instagram.com/gemilangkoperasi" target="_blank"
-                               class="w-8 h-8 rounded-full border border-white/70 flex items-center justify-center hover:bg-white/15">
+                            <a href="{{ $igUrl }}"
+                               target="_blank"
+                               class="w-8 h-8 rounded-full border border-[#0F7B3B]/70 flex items-center justify-center hover:bg-[#0F7B3B]/10">
                                 <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none"
                                      stroke="currentColor" stroke-width="1.6">
                                     <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
@@ -303,8 +324,10 @@ bentuk apapun kepada NASABAH!
                                     <circle cx="17.5" cy="6.5" r="0.9" fill="currentColor"></circle>
                                 </svg>
                             </a>
-                            <a href="#"
-                               class="w-8 h-8 rounded-full border border-white/70 flex items-center justify-center hover:bg-white/15">
+
+                            <a href="{{ $fbUrl }}"
+                               target="_blank"
+                               class="w-8 h-8 rounded-full border border-[#0F7B3B]/70 flex items-center justify-center hover:bg-[#0F7B3B]/10">
                                 <svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor">
                                     <path d="M13.5 22v-7h2.4l.4-3h-2.8v-2c0-.9.3-1.5 1.6-1.5H16V5.1C15.7 5 14.8 5 13.8 5 11.4 5 9.8 6.4 9.8 8.9V12H7v3h2.8v7h3.7z"/>
                                 </svg>
@@ -313,7 +336,8 @@ bentuk apapun kepada NASABAH!
                     </div>
                 </div>
 
-                <div class="mt-10 border-t border-white/25 pt-6">
+                {{-- Counter Pengunjung --}}
+                <div class="mt-10 border-t border-[#0F7B3B]/25 pt-6">
                     <div class="flex flex-col md:flex-row items-center justify-center gap-8 text-center">
                         <div>
                             <div class="uppercase tracking-wide text-[11px] font-semibold">
@@ -323,7 +347,9 @@ bentuk apapun kepada NASABAH!
                                 {{ $todayVisitors }}
                             </div>
                         </div>
-                        <div class="h-px w-16 bg-white/40 md:h-10 md:w-px md:bg-white/40"></div>
+
+                        <div class="h-px w-16 bg-[#0F7B3B]/40 md:h-10 md:w-px"></div>
+
                         <div>
                             <div class="uppercase tracking-wide text-[11px] font-semibold">
                                 Total Pengunjung
@@ -341,6 +367,5 @@ bentuk apapun kepada NASABAH!
             </div>
         </div>
     </footer>
-
 </body>
 </html>
