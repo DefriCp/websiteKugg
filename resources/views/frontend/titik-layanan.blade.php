@@ -33,7 +33,7 @@
                         Kantor Pusat
                     </h2>
                     <p class="text-sm text-slate-600 mb-2">
-                        Jl. Sultan Hasanudin, Ruko Tambun City R6-16, Tambun - Bekasi
+                        Jl. H Terin No.5. RT 005 / RW 03, Kelurahan Pangkalan jati baru, Kecamatan Cinere, Kota Depok, Jawa barat 16513
                     </p>
                     <p class="text-xs text-slate-500">
                         Telepon: 021-xxxxxxx
