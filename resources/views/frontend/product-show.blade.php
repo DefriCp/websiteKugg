@@ -36,14 +36,34 @@
 
             <hr class="border-slate-100 mb-4 md:mb-5">
 
-            {{-- Gambar utama --}}
+            {{-- Gambar Poster Portrait - OPSI 1: Center dengan max-width (Rekomendasi) --}}
             @if($product->image)
-                <div class="mb-6">
+                <div class="mb-6 flex justify-center bg-slate-50 rounded-lg p-4">
                     <img src="{{ asset('storage/' . $product->image) }}"
                          alt="{{ $product->name }}"
-                         class="w-full max-h-[480px] object-cover rounded-lg">
+                         class="w-auto h-auto max-w-full max-h-[700px] rounded-lg shadow-md">
                 </div>
             @endif
+
+            {{-- OPSI 2: Dengan lebar terbatas (Uncomment untuk pakai ini) --}}
+            {{-- @if($product->image)
+                <div class="mb-6 flex justify-center">
+                    <div class="max-w-md w-full">
+                        <img src="{{ asset('storage/' . $product->image) }}"
+                             alt="{{ $product->name }}"
+                             class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            @endif --}}
+
+            {{-- OPSI 3: Responsif dengan breakpoint (Uncomment untuk pakai ini) --}}
+            {{-- @if($product->image)
+                <div class="mb-6 flex justify-center">
+                    <img src="{{ asset('storage/' . $product->image) }}"
+                         alt="{{ $product->name }}"
+                         class="w-full sm:w-2/3 md:w-1/2 h-auto rounded-lg shadow-md">
+                </div>
+            @endif --}}
 
             {{-- Deskripsi Singkat --}}
             @if($product->short_description)

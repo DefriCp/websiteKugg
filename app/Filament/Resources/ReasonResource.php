@@ -17,75 +17,144 @@ class ReasonResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-light-bulb';
     protected static ?string $navigationGroup = 'Beranda';
-    protected static ?string $navigationLabel = 'Alasan (Kenapa Harus)';
+    protected static ?string $navigationLabel = 'Tentang/Alasan/Struktur';
 
     public static function form(Form $form): Form
-{
-    return $form->schema([
-        Forms\Components\Select::make('type')
-            ->label('Jenis Data')
-            ->options([
-                'about' => 'Tentang Kami',
-                'why'   => 'Kenapa harus Gilang Gemilang',
-            ])
-            ->default('why')
-            ->required()
-            ->live(), // supaya form bereaksi ketika jenis data diubah
+    {
+        return $form->schema([
 
-        Forms\Components\TextInput::make('title')
-            ->label('Judul')
-            ->maxLength(255)
-            // wajib diisi hanya jika jenis data = "Kenapa Harus"
-            ->required(fn (Get $get) => $get('type') === 'why')
-            // sembunyikan field kalau jenis data = "Tentang Kami"
-            ->hidden(fn (Get $get) => $get('type') === 'about'),
+            Forms\Components\Select::make('type')
+                ->label('Jenis Data')
+                ->options([
+                    'about' => 'Tentang Kami',
+                    'why'   => 'Kenapa Harus Gilang Gemilang',
+                    'management' => 'Struktur Manajemen',
+                ])
+                ->required()
+                ->live(),
 
-        Forms\Components\Textarea::make('description')
-            ->label('Deskripsi')
-            ->rows(3),
+            /* =====================
+             | TENTANG KAMI
+             ===================== */
+            Forms\Components\Section::make('Tentang Kami')
+                ->schema([
 
-        Forms\Components\FileUpload::make('image')
-            ->label('Gambar')
-            ->image()
-            ->directory('reasons')
-            ->required(fn (Get $get) => $get('type') === 'why')
-            ->hidden(fn (Get $get) => $get('type') === 'about'),
+                    Forms\Components\Select::make('key')
+                        ->label('Bagian')
+                        ->options([
+                            'informasi_umum' => 'Informasi Umum',
+                            'visi' => 'Visi',
+                            'misi' => 'Misi',
+                        ])
+                        ->required(),
 
-        Forms\Components\TextInput::make('sort_order')
-            ->label('Urutan')
-            ->numeric()
-            ->default(0)
-            ->hidden(fn (Get $get) => $get('type') === 'about'),
-    ])->columns(2);
-}
+                    Forms\Components\Textarea::make('description')
+                        ->label('Isi')
+                        ->rows(6)
+                        ->required(),
+
+                ])
+                ->visible(fn (Get $get) => $get('type') === 'about'),
+
+            /* =====================
+             | KENAPA HARUS
+             ===================== */
+            Forms\Components\Section::make('Kenapa Harus Gilang Gemilang')
+                ->schema([
+
+                    Forms\Components\TextInput::make('title')
+                        ->label('Judul')
+                        ->required(),
+
+                    Forms\Components\Textarea::make('description')
+                        ->label('Deskripsi')
+                        ->rows(4)
+                        ->required(),
+
+                    Forms\Components\FileUpload::make('image')
+                        ->label('Gambar')
+                        ->image()
+                        ->directory('reasons')
+                        ->required(),
+
+                    Forms\Components\TextInput::make('sort_order')
+                        ->label('Urutan')
+                        ->numeric()
+                        ->default(0),
+
+                ])
+                ->columns(2)
+                ->visible(fn (Get $get) => $get('type') === 'why'),
+
+
+
+             /* =====================
+             | Struktur Manajemen
+             ===================== */
+            Forms\Components\Section::make('Struktur Manajemen')
+                ->schema([
+
+                    Forms\Components\TextInput::make('title')
+                        ->label('Jabatan')
+                        ->required(),
+
+                    Forms\Components\Textarea::make('description')
+                        ->label('Nama Lengkap')
+                        ->required(),
+
+                    Forms\Components\FileUpload::make('image')
+                        ->image()
+                        ->directory('management')
+                        ->required(),
+
+                    Forms\Components\TextInput::make('sort_order')
+                        ->numeric()
+                        ->default(0),
+
+                ])
+                ->visible(fn (Get $get) => $get('type') === 'management'),
+
+        ]);
+    }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+
                 Tables\Columns\TextColumn::make('type')
                     ->label('Jenis')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => $state === 'about' ? 'Tentang Kami' : 'Kenapa Harus'),
-                Tables\Columns\ImageColumn::make('image')
-                    ->label('Gambar'),
+                    ->formatStateUsing(fn ($state) =>
+                        $state === 'about' ? 'Tentang Kami' : 'Kenapa Harus'
+                    ),
+
+                Tables\Columns\TextColumn::make('key')
+                    ->label('Bagian')
+                    ->badge()
+                    ->toggleable(),
+
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
+
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Gambar')
+                    ->toggleable(),
+
                 Tables\Columns\TextColumn::make('sort_order')
                     ->label('Urutan')
                     ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
-                    ->dateTime('d-m-Y H:i'),
+                    ->dateTime('d M Y'),
             ])
             ->defaultSort('sort_order')
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
