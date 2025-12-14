@@ -259,7 +259,7 @@
                     <p class="text-xs uppercase font-bold text-amber-900/70 tracking-wider mb-1">
                         Form Pengaduan
                     </p>
-                    <h2 class="text-xl font-bold text-gray-900">
+                    <h2 class="text-xl font-bold text-black-900">
                         Pengaduan, Kritik & Saran
                     </h2>
                 </div>
@@ -268,7 +268,7 @@
                     @click="openPengaduan = false"
                     class="w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow-md flex items-center justify-center transition-all hover:scale-110"
                 >
-                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-black-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
@@ -280,7 +280,7 @@
                     <svg class="w-5 h-5 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    <p class="text-xs text-gray-700 leading-relaxed">
+                    <p class="text-xs text-black-700 leading-relaxed">
                         Laporkan disini apabila karyawan kami meminta imbalan dalam bentuk apapun kepada NASABAH!
                     </p>
                 </div>
@@ -298,44 +298,44 @@
                     @csrf
 
                     <div>
-                        <label class="block font-semibold text-gray-900 mb-2 text-sm">
+                        <label class="block font-semibold text-black-900 mb-2 text-sm">
                             Nama Anda
                         </label>
                         <input type="text" name="name"
-                               class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-400 transition-colors"
+                               class="w-full border-2 border-black-200 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-400 transition-colors"
                                required>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block font-semibold text-gray-900 mb-2 text-sm">
+                            <label class="block font-semibold text-black-900 mb-2 text-sm">
                                 Nomor Handphone
                             </label>
                             <input type="text" name="phone"
-                                   class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-400 transition-colors"
+                                   class="w-full border-2 border-black-200 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-400 transition-colors"
                                    required>
                         </div>
 
                         <div>
-                            <label class="block font-semibold text-gray-900 mb-2 text-sm">
+                            <label class="block font-semibold text-black-900 mb-2 text-sm">
                                 Alamat Email
                             </label>
                             <input type="email" name="email"
-                                   class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-400 transition-colors">
+                                   class="w-full border-2 border-black-200 rounded-xl px-4 py-3 focus:outline-none focus:border-amber-400 transition-colors">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block font-semibold text-gray-900 mb-2 text-sm">
+                        <label class="block font-semibold text-black-900 mb-2 text-sm">
                             Isi Keterangan
                         </label>
                         <textarea name="message" rows="4"
-                                  class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 resize-none focus:outline-none focus:border-amber-400 transition-colors"
+                                  class="w-full border-2 border-black-200 rounded-xl px-4 py-3 resize-none focus:outline-none focus:border-amber-400 transition-colors"
                                   required></textarea>
                     </div>
 
                     <button type="submit"
-                            class="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold shadow-lg hover:shadow-amber-500/50 transition-all hover:scale-105">
+                            class="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-black-900 font-bold shadow-lg hover:shadow-amber-500/50 transition-all hover:scale-105">
                         Kirim Pengaduan
                     </button>
                 </form>
@@ -356,7 +356,7 @@
         $totalVisitors = $totalVisitors ?? 0;
     @endphp
 
-    <footer class="mt-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden">
+    <footer class="mt-20  bg-gradient-to-r from-[#FFFFFF] via-[#FFE7B5] to-[#F9B733] shadow-[0_4px_20px_rgba(0,0,0,0.08) text-black relative overflow-hidden">
         {{-- Decorative Elements --}}
         <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
@@ -377,7 +377,7 @@
                         <h3 class="font-bold text-xl mb-2">
                             {{ $globalSetting->site_name ?? 'Koperasi Usaha Gilang Gemilang' }}
                         </h3>
-                        <p class="text-sm text-gray-400">
+                        <p class="text-sm text-black-400">
                             Indonesia's Trusted Cooperative for Pension Loans
                         </p>
                     </div>
@@ -389,11 +389,11 @@
                         Menu Utama
                     </h4>
                     <ul class="space-y-2.5">
-                        <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-amber-400 transition-colors text-sm">Beranda</a></li>
-                        <li><a href="{{ route('news.index') }}" class="text-gray-300 hover:text-amber-400 transition-colors text-sm">Berita</a></li>
-                        <li><a href="{{ route('products') }}" class="text-gray-300 hover:text-amber-400 transition-colors text-sm">Produk</a></li>
-                        <li><a href="{{ route('titik-layanan') }}" class="text-gray-300 hover:text-amber-400 transition-colors text-sm">Titik Layanan</a></li>
-                        <li><a href="{{ route('mitra') }}" class="text-gray-300 hover:text-amber-400 transition-colors text-sm">Mitra</a></li>
+                        <li><a href="{{ route('home') }}" class="text-black-300 hover:text-amber-400 transition-colors text-sm">Beranda</a></li>
+                        <li><a href="{{ route('news.index') }}" class="text-black-300 hover:text-amber-400 transition-colors text-sm">Berita</a></li>
+                        <li><a href="{{ route('products') }}" class="text-black-300 hover:text-amber-400 transition-colors text-sm">Produk</a></li>
+                        <li><a href="{{ route('titik-layanan') }}" class="text-black-300 hover:text-amber-400 transition-colors text-sm">Titik Layanan</a></li>
+                        <li><a href="{{ route('mitra') }}" class="text-black-300 hover:text-amber-400 transition-colors text-sm">Mitra</a></li>
                     </ul>
                 </div>
 
@@ -402,7 +402,7 @@
                     <h4 class="text-sm font-bold uppercase tracking-wider mb-4 text-amber-400">
                         Kontak
                     </h4>
-                    <ul class="space-y-3 text-sm text-gray-300">
+                    <ul class="space-y-3 text-sm text-black-300">
                         <li class="flex gap-3">
                             <svg class="w-5 h-5 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -437,8 +437,8 @@
                     <div class="flex gap-3">
                         <a href="{{ $igUrl }}"
                            target="_blank"
-                           class="w-12 h-12 rounded-xl bg-white/10 hover:bg-amber-400 flex items-center justify-center transition-all hover:scale-110 group">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           class="w-12 h-12 rounded-xl bg-black/10 hover:bg-amber-400 flex items-center justify-center transition-all hover:scale-110 group">
+                            <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
                                 <circle cx="12" cy="12" r="4" stroke-width="2"/>
                                 <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
@@ -447,8 +447,8 @@
 
                         <a href="{{ $fbUrl }}"
                            target="_blank"
-                           class="w-12 h-12 rounded-xl bg-white/10 hover:bg-amber-400 flex items-center justify-center transition-all hover:scale-110 group">
-                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                           class="w-12 h-12 rounded-xl bg-black/10 hover:bg-amber-400 flex items-center justify-center transition-all hover:scale-110 group">
+                            <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M13.5 22v-7h2.4l.4-3h-2.8v-2c0-.9.3-1.5 1.6-1.5H16V5.1C15.7 5 14.8 5 13.8 5 11.4 5 9.8 6.4 9.8 8.9V12H7v3h2.8v7h3.7z"/>
                             </svg>
                         </a>
@@ -462,7 +462,7 @@
                     {{-- Visitor Stats --}}
                     <div class="flex items-center gap-8">
                         <div class="text-center">
-                            <div class="text-xs uppercase tracking-wide text-gray-400 mb-1">
+                            <div class="text-xs uppercase tracking-wide text-black-400 mb-1">
                                 Hari Ini
                             </div>
                             <div class="text-2xl font-bold text-amber-400">
@@ -473,7 +473,7 @@
                         <div class="h-12 w-px bg-white/20"></div>
 
                         <div class="text-center">
-                            <div class="text-xs uppercase tracking-wide text-gray-400 mb-1">
+                            <div class="text-xs uppercase tracking-wide text-black-400 mb-1">
                                 Total
                             </div>
                             <div class="text-2xl font-bold text-amber-400">
@@ -483,7 +483,7 @@
                     </div>
 
                     {{-- Copyright --}}
-                    <div class="text-sm text-gray-400">
+                    <div class="text-sm text-black-400">
                         © {{ date('Y') }} Koperasi Usaha Gilang Gemilang. All rights reserved.
                     </div>
                 </div>
